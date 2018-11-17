@@ -4,19 +4,20 @@ import matplotlib.pyplot as plt
 from scipy.ndimage.filters import maximum_filter
 from scipy.ndimage.morphology import (generate_binary_structure,
                                       iterate_structure, binary_erosion)
-#import hashlib
+# import hashlib
 from operator import itemgetter
 import wave
 
-#from kafka import KafkaConsumer
-#from collections import Counter
-#import audioop
-#from IPython.display import Audio
-#import json
-#import wave
-#import pathlib
-#import requests
-#import pickle
+import pickle
+
+# from kafka import KafkaConsumer
+# from collections import Counter
+# import audioop
+# from IPython.display import Audio
+# import json
+# import wave
+# import pathlib
+# import requests
 
 # Confifiguration settings
 IDX_FREQ_I = 0
