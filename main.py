@@ -184,7 +184,7 @@ def main():
         feature_generator = fingerprint(pcm.tolist(), Fs=wave_file.getframerate())
 
         for f, t1 in feature_generator:
-            print(f, t1, str(float(loopCount) + (t1/937.5) * 10) + "s")
+            print(f, t1, str((float(loopCount) + (t1/937.5)) * 10) + "s")
 
         loopCount += 1
 
