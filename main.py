@@ -200,6 +200,9 @@ def main():
 
         loopCount += 1
 
+    with open("scream_landmarks_table.pickle", "wb") as counter_pickle_file:
+        pickle.dump(landmarks_table, counter_pickle_file)
+
 
 if __name__ == "__main__":
     main()
