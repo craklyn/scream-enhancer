@@ -6,6 +6,7 @@ from scipy.ndimage.morphology import (generate_binary_structure,
                                       iterate_structure, binary_erosion)
 #import hashlib
 from operator import itemgetter
+import wave
 
 #from kafka import KafkaConsumer
 #from collections import Counter
@@ -170,7 +171,27 @@ def generate_hashes(peaks, fan_value=DEFAULT_FAN_VALUE):
 
 def main():
     print("Hello world")
-    # feature_generator = fingerprint(pcm_stream.tolist())
+
+#    pcm_stream = wave.open("audio/lion-sample.wav", mode="rb")
+    pcm_stream = wave.open("audio/scream.1996.wav", mode="rb")
+
+#    print(type(pcm_stream))
+#    print(pcm_stream.getnchannels())
+#    print(pcm_stream.getsampwidth())
+#    print(pcm_stream.getframerate())
+#    print(pcm_stream.getnframes())
+#    print(pcm_stream.getcomptype())
+#    print(pcm_stream.readframes(pcm_stream.getnframes()))
+
+    pcm_stream = np.frombuffer(pcm_stream.readframes(pcm_stream.getnframes()), dtype=np.int16)
+    # print(len(pcm_stream))
+
+    feature_generator = fingerprint(pcm_stream.tolist())
+    print(type(feature_generator))
+
+    for f, t1 in feature_generator:
+        print(f, t1)
+
     # for f, t1 in feature_generator:
     #     # Add this audio to counter.  Key is md5 of fingerprint string and reversed fingerprint string
     #     landmarks.append(f)
