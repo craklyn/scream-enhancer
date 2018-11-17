@@ -172,25 +172,15 @@ def generate_hashes(peaks, fan_value=DEFAULT_FAN_VALUE):
 def main():
     print("Hello world")
 
-#    pcm_stream = wave.open("audio/lion-sample.wav", mode="rb")
-    pcm_stream = wave.open("audio/scream.1996.wav", mode="rb")
+    wave_file = wave.open("audio/scream.1996.wav", mode="rb")
 
-#    print(type(pcm_stream))
-#    print(pcm_stream.getnchannels())
-#    print(pcm_stream.getsampwidth())
-#    print(pcm_stream.getframerate())
-#    print(pcm_stream.getnframes())
-#    print(pcm_stream.getcomptype())
-#    print(pcm_stream.readframes(pcm_stream.getnframes()))
+    pcm = wave_file.readframes(10 * wave_file.getframerate())
+    while len(pcm) > 0:
+        pcm = np.frombuffer(wave_file.readframes(10 * wave_file.getframerate()), dtype=np.int16)
+        feature_generator = fingerprint(pcm.tolist())
 
-    pcm_stream = np.frombuffer(pcm_stream.readframes(pcm_stream.getnframes()), dtype=np.int16)
-    # print(len(pcm_stream))
-
-    feature_generator = fingerprint(pcm_stream.tolist())
-    print(type(feature_generator))
-
-    for f, t1 in feature_generator:
-        print(f, t1)
+        for f, t1 in feature_generator:
+            print(f, t1)
 
     # for f, t1 in feature_generator:
     #     # Add this audio to counter.  Key is md5 of fingerprint string and reversed fingerprint string
