@@ -190,6 +190,7 @@ def main():
 
         for f, t1 in feature_generator:
             print(f, t1, str((float(loopCount) + (t1/937.5)) * 10) + "s")
+            # Add this audio to counter.  Key is md5 of fingerprint string and reversed fingerprint string
             landmarks.append(f)
             t1s.append(t1)
             if f in landmarks_table:
@@ -198,11 +199,6 @@ def main():
                 landmarks_table[f] = set([t1])
 
         loopCount += 1
-
-    for f, t1 in feature_generator:
-        # Add this audio to counter.  Key is md5 of fingerprint string and reversed fingerprint string
-
-
 
 
 if __name__ == "__main__":
