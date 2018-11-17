@@ -177,7 +177,7 @@ def main():
     pcm = wave_file.readframes(10 * wave_file.getframerate())
     while len(pcm) > 0:
         pcm = np.frombuffer(wave_file.readframes(10 * wave_file.getframerate()), dtype=np.int16)
-        feature_generator = fingerprint(pcm.tolist())
+        feature_generator = fingerprint(pcm.tolist(), Fs=wave_file.getframerate())
 
         for f, t1 in feature_generator:
             print(f, t1)
