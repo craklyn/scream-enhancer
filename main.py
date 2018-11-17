@@ -83,6 +83,9 @@ def fingerprint(channel_samples, Fs=DEFAULT_FS,
     FFT the channel, log transform output, find local maxima, then return
     locally sensitive hashes.
     """
+
+    print("fingerprint opened with Fs=" + str(Fs))
+
     # FFT the signal and extract frequency components
     arr2D = mlab.specgram(
         channel_samples,
@@ -177,10 +180,14 @@ def main():
     pcm = wave_file.readframes(10 * wave_file.getframerate())
     while len(pcm) > 0:
         pcm = np.frombuffer(wave_file.readframes(10 * wave_file.getframerate()), dtype=np.int16)
+        print("Debug a")
         feature_generator = fingerprint(pcm.tolist(), Fs=wave_file.getframerate())
+        print("Debug a")
 
         for f, t1 in feature_generator:
-            print(f, t1)
+            print(f, t1, str(t1/937.5 * 10) + "s")
+
+        break
 
     # for f, t1 in feature_generator:
     #     # Add this audio to counter.  Key is md5 of fingerprint string and reversed fingerprint string
