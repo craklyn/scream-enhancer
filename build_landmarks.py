@@ -9,13 +9,11 @@ from operator import itemgetter
 import wave
 
 import pickle
+from datetime import datetime
 
-# from kafka import KafkaConsumer
 # from collections import Counter
 # import audioop
 # from IPython.display import Audio
-# import json
-# import wave
 # import pathlib
 # import requests
 
@@ -41,25 +39,25 @@ DEFAULT_OVERLAP_RATIO = 0.5
 ######################################################################
 # Degree to which a fingerprint can be paired with its neighbors --
 # higher will cause more fingerprints, but potentially better accuracy.
-DEFAULT_FAN_VALUE = 25
+DEFAULT_FAN_VALUE = 40
 
 ######################################################################
 # Minimum amplitude in spectrogram in order to be considered a peak.
 # This can be raised to reduce number of fingerprints, but can negatively
 # affect accuracy.
-DEFAULT_AMP_MIN = 10
+DEFAULT_AMP_MIN = 5
 
 ######################################################################
 # Number of cells around an amplitude peak in the spectrogram in order
 # for Dejavu to consider it a spectral peak. Higher values mean less
 # fingerprints and faster matching, but can potentially affect accuracy.
-PEAK_NEIGHBORHOOD_SIZE = 30
+PEAK_NEIGHBORHOOD_SIZE = 25
 
 ######################################################################
 # Thresholds on how close or far fingerprints can be in time in order
 # to be paired as a fingerprint. If your max is too low, higher values of
 # DEFAULT_FAN_VALUE may not perform as expected.
-MIN_HASH_TIME_DELTA = 0
+MIN_HASH_TIME_DELTA = 50
 MAX_HASH_TIME_DELTA = 1200
 
 ######################################################################
@@ -174,8 +172,7 @@ def generate_hashes(peaks, fan_value=DEFAULT_FAN_VALUE):
 
 
 def main():
-    print("Hello world")
-
+    print("Opening Scream audio.")
     wave_file = wave.open("audio/scream.1996.wav", mode="rb")
 
     # Read file, build landmarks table
@@ -183,7 +180,7 @@ def main():
     landmarks = []
     t1s = []
 
-    timeWindow = 20  # in seconds
+    timeWindow = 3600  # in seconds
     frames_per_timeWindow = timeWindow * wave_file.getframerate() / (DEFAULT_WINDOW_SIZE * DEFAULT_OVERLAP_RATIO)
 
     pcm = wave_file.readframes(timeWindow * wave_file.getframerate())
@@ -211,5 +208,6 @@ def main():
 
 
 if __name__ == "__main__":
+    startTime = datetime.now()
     main()
-
+    print("Elapsed processing time: " + str(datetime.now() - startTime))
