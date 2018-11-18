@@ -4,7 +4,7 @@ import scipy.io.wavfile as wav
 
 import pickle
 
-import main
+import build_landmarks
 from collections import Counter
 import time
 
@@ -12,7 +12,7 @@ fs=48000
 duration = 20  # seconds
 timeWindow = duration
 
-frames_per_timeWindow = duration * fs / (main.DEFAULT_WINDOW_SIZE * main.DEFAULT_OVERLAP_RATIO)
+frames_per_timeWindow = duration * fs / (build_landmarks.DEFAULT_WINDOW_SIZE * build_landmarks.DEFAULT_OVERLAP_RATIO)
 
 with open("scream_landmarks_table.pickle", "rb") as counter_pickle_file:
     landmarks_table = pickle.load(counter_pickle_file)
@@ -26,7 +26,7 @@ while True:
     #sd.wait()
     #print("Play Audio Complete")
 
-    feature_generator = main.fingerprint([x[0] for x in myrecording], Fs=48000)
+    feature_generator = build_landmarks.fingerprint([x[0] for x in myrecording], Fs=48000)
 
     t1_diffs = Counter()
     for rec_f, rec_t1 in feature_generator:
