@@ -41,7 +41,7 @@ DEFAULT_OVERLAP_RATIO = 0.5
 ######################################################################
 # Degree to which a fingerprint can be paired with its neighbors --
 # higher will cause more fingerprints, but potentially better accuracy.
-DEFAULT_FAN_VALUE = 20
+DEFAULT_FAN_VALUE = 25
 
 ######################################################################
 # Minimum amplitude in spectrogram in order to be considered a peak.
@@ -60,7 +60,7 @@ PEAK_NEIGHBORHOOD_SIZE = 30
 # to be paired as a fingerprint. If your max is too low, higher values of
 # DEFAULT_FAN_VALUE may not perform as expected.
 MIN_HASH_TIME_DELTA = 0
-MAX_HASH_TIME_DELTA = 200
+MAX_HASH_TIME_DELTA = 1200
 
 ######################################################################
 # If True, will sort peaks temporally for fingerprinting;

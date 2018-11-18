@@ -9,23 +9,22 @@ from collections import Counter
 import time
 
 fs=48000
-duration = 5  # seconds
+duration = 20  # seconds
 timeWindow = duration
 
 frames_per_timeWindow = duration * fs / (main.DEFAULT_WINDOW_SIZE * main.DEFAULT_OVERLAP_RATIO)
 
+with open("scream_landmarks_table.pickle", "rb") as counter_pickle_file:
+    landmarks_table = pickle.load(counter_pickle_file)
 
 while True:
     myrecording = sd.rec(duration * fs, samplerate=fs, channels=1, dtype='int16')
     print("Recording Audio")
     sd.wait()
-    print("Audio recording complete , Play Audio")
+    #print("Audio recording complete , Play Audio")
     #sd.play(myrecording, fs)
     #sd.wait()
     #print("Play Audio Complete")
-
-    with open("scream_landmarks_table.pickle", "rb") as counter_pickle_file:
-        landmarks_table = pickle.load(counter_pickle_file)
 
     feature_generator = main.fingerprint([x[0] for x in myrecording], Fs=48000)
 
@@ -40,11 +39,9 @@ while True:
 
     print(t1_diffs.most_common(1)[0])
     time_s = t1_diffs.most_common(1)[0][0]
-    print("Time (s): " + str(time_s))
     print("Time: " + time.strftime('%H:%M:%S', time.gmtime(time_s)))
-    #print("Time: " + str(int(time_s/(60*60))) + ":" + str(int(time_s/60)%60) + ":" + str(int(time_s%60)))
 
-    break
+    #break
 
 
 
