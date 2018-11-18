@@ -183,14 +183,19 @@ def main():
     landmarks = []
     t1s = []
 
-    pcm = wave_file.readframes(10 * wave_file.getframerate())
+    timeWindow = 20  # in seconds
+    frames_per_timeWindow = timeWindow * wave_file.getframerate() / (DEFAULT_WINDOW_SIZE * DEFAULT_OVERLAP_RATIO)
+
+    pcm = wave_file.readframes(timeWindow * wave_file.getframerate())
     loopCount = 0
     while len(pcm) > 0:
-        pcm = np.frombuffer(wave_file.readframes(10 * wave_file.getframerate()), dtype=np.int16)
+        pcm = np.frombuffer(wave_file.readframes(timeWindow * wave_file.getframerate()), dtype=np.int16)
         feature_generator = fingerprint(pcm.tolist(), Fs=wave_file.getframerate())
 
         for f, t1 in feature_generator:
-            print(f, t1, str((float(loopCount) + (t1/937.5)) * 10) + "s")
+            t1 = (loopCount + (t1 / frames_per_timeWindow)) * timeWindow  # Express t1 in seconds since start of file
+
+            print(f, t1, str(t1) + "s")
             # Add this audio to counter.  Key is md5 of fingerprint string and reversed fingerprint string
             landmarks.append(f)
             t1s.append(t1)
