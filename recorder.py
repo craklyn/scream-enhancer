@@ -10,6 +10,7 @@ import time
 
 fs=48000
 duration = 5  # seconds
+timeWindow = duration
 
 frames_per_timeWindow = duration * fs / (main.DEFAULT_WINDOW_SIZE * main.DEFAULT_OVERLAP_RATIO)
 
