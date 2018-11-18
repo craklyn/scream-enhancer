@@ -32,8 +32,13 @@ while True:
             for t1 in t1s:
                 t1_diffs[int(t1 - rec_t1)] += 1
 
-    print(t1_diffs.most_common(1))
-    time_s = t1_diffs.most_common(1)[0]
+    print(t1_diffs.most_common(1)[0])
+    time_s = t1_diffs.most_common(1)[0][0]
     print("Time (s): " + str(time_s))
-    print("Time: " + time.strftime('%H:%M:%S', time.gmtime(time_s))
-#    print("Time: " + str(int(time_s/(60*60))) + ":" + str(int(time_s/60)%60) + ":" + str(int(time_s%60)))
+    print("Time: " + time.strftime('%H:%M:%S', time.gmtime(time_s)))
+    #print("Time: " + str(int(time_s/(60*60))) + ":" + str(int(time_s/60)%60) + ":" + str(int(time_s%60)))
+
+    break
+
+
+
