@@ -11,6 +11,9 @@ import time
 fs=48000
 duration = 5  # seconds
 
+frames_per_timeWindow = duration * fs / (DEFAULT_WINDOW_SIZE * DEFAULT_OVERLAP_RATIO)
+
+
 while True:
     myrecording = sd.rec(duration * fs, samplerate=fs, channels=1, dtype='int16')
     print("Recording Audio")
