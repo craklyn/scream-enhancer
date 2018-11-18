@@ -27,7 +27,7 @@ while True:
 
     t1_diffs = Counter()
     for rec_f, rec_t1 in feature_generator:
-        rec_t1 = int(t1 * timeWindow / frames_per_timeWindow)  # Express t1 in seconds since start of file
+        rec_t1 = int(rec_t1 * timeWindow / frames_per_timeWindow)  # Express t1 in seconds since start of file
 
         if rec_f in landmarks_table:
             t1s = landmarks_table[rec_f]
